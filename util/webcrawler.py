@@ -1,3 +1,5 @@
+'Web crawlign util to get movie poster image urls'
+
 import os
 from icrawler.builtin import GoogleImageCrawler
 from icrawler.downloader import ImageDownloader
