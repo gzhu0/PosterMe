@@ -57,7 +57,7 @@ def findVector(image):
         #mp_image = mp.Image(image_format=mp.ImageFormat.SRGB, data=numpy_image)
 
 
-        detection_result = landmarker.detect(mp_image)
+        detection_result = landmarker.detect(    mp_image)
 
         mp_image = annotated_image.numpy_view()
         annotated_image = draw_landmarks_on_image(mp_image.numpy_view(), detection_result)
