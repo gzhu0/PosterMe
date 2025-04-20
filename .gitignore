@@ -5,6 +5,7 @@ data
 alton.jpg
 test.py
 test.ipynb
+data.json
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
