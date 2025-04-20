@@ -1,3 +1,11 @@
+#Project Files
+testImages
+posters.json
+data
+alton.jpg
+test.py
+test.ipynb
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
@@ -310,6 +318,3 @@ dist
 .yarn/install-state.gz
 .pnp.*
 
-
-
-alton.jpg
