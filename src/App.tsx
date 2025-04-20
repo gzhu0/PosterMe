@@ -10,6 +10,7 @@ function App() {
   const [buttonPressed, setButtonPressed] = useState(false);
   const [isFreezing, setIsFreezing] = useState(false);
   const [hasPermission, setHasPermission] = useState<boolean | null>(null);
+  const [countdown, setCountdown] = useState<number | null>(null);
 
   // Check camera permissions when component mounts
   useEffect(() => {
@@ -35,27 +36,44 @@ function App() {
     setIsFreezing(true);
     setButtonPressed(true);
     
-    if (showCurtain) {
-      setShowCurtain(false);
-    }
+    // Start countdown from 3
+    setCountdown(3);
     
-    // Take the photo after a very short delay to ensure curtain state is updated
+    // Countdown sequence
+    const countdownInterval = setInterval(() => {
+      setCountdown(prev => {
+        if (prev === null || prev <= 1) {
+          clearInterval(countdownInterval);
+          return null;
+        }
+        return prev - 1;
+      });
+    }, 1000);
+    
+    // Add delay before closing curtain
     setTimeout(() => {
-      if (!webcamRef.current) return;
-      
-      const imageSrc = webcamRef.current.getScreenshot();
-      if (imageSrc) {
-        setPhoto(imageSrc);
-      } else {
-        setWebcamError("Failed to capture photo. Please try again.");
+      if (showCurtain) {
+        setShowCurtain(false);
       }
       
-      // Reset button state after a short delay
+      // Take the photo after a very short delay to ensure curtain state is updated
       setTimeout(() => {
-        setButtonPressed(false);
-        setIsFreezing(false);
-      }, 150);
-    }, 50);
+        if (!webcamRef.current) return;
+        
+        const imageSrc = webcamRef.current.getScreenshot();
+        if (imageSrc) {
+          setPhoto(imageSrc);
+        } else {
+          setWebcamError("Failed to capture photo. Please try again.");
+        }
+        
+        // Reset button state after a short delay
+        setTimeout(() => {
+          setButtonPressed(false);
+          setIsFreezing(false);
+        }, 150);
+      }, 50);
+    }, 3000); // 3 second delay before curtain closes
   };
 
   return (
@@ -85,7 +103,7 @@ function App() {
                 height: { ideal: 720 },
                 facingMode: "user"
               }}
-              className={`object-cover w-full h-full ${isFreezing ? 'opacity-50' : ''}`}
+              className={`object-cover w-full h-full ${isFreezing && countdown === null ? 'opacity-50' : ''}`}
               onUserMediaError={(err) => {
                 console.error("Webcam error:", err);
                 setWebcamError("Webcam access denied or unavailable. Please check your camera permissions.");
@@ -106,7 +124,7 @@ function App() {
               onClick={handleButtonClick}
               disabled={isFreezing}
             >
-              START
+              {countdown !== null ? countdown : 'START'}
             </button>
           )}
           {!hasPermission && !webcamError && (
