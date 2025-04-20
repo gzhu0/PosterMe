@@ -6,9 +6,12 @@ interface ClapperBoardProps {
 
 const ClapperBoard: React.FC<ClapperBoardProps> = ({ isVisible }) => {
   const wiggleAnimation = {
-    animation: isVisible ? 'wiggle 1s ease-in-out infinite' : 'none',
-    transformOrigin: 'right center',
-    animationDelay: '800ms'
+    animationName: isVisible ? 'wiggle' : 'none',
+    animationDuration: '1s',
+    animationTimingFunction: 'ease-in-out',
+    animationIterationCount: isVisible ? 'infinite' : '1',
+    animationDelay: '800ms',
+    transformOrigin: 'right center'
   };
 
   return (
