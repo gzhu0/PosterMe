@@ -20,35 +20,6 @@ body {
   overflow: hidden;
 }
 
-/* Curtain styles */
-.curtain {
-  position: absolute;
-  top: 0;
-  bottom: 0;
-  background-color: #000;
-  transition: transform 1s ease-in-out;
-  z-index: 10;
-}
-
-.curtain.left {
-  left: 0;
-  transform: translateX(-100%); /* Initially off-screen */
-}
-
-.curtain.right {
-  right: 0;
-  transform: translateX(100%); /* Initially off-screen */
-}
-
-/* Curtain opening and closing animation */
-.curtain.open.left {
-  transform: translateX(0%); /* Open the left curtain */
-}
-
-.curtain.open.right {
-  transform: translateX(0%); /* Open the right curtain */
-}
-
 @keyframes curtainOpenClose {
   0% {
     transform: translateX(-100%); /* Start closed */
