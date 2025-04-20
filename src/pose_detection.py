@@ -32,9 +32,11 @@ def draw_landmarks_on_image(rgb_image, detection_result):
       solutions.drawing_styles.get_default_pose_landmarks_style())
   return annotated_image
 
-def findVector3(image):
-    # Runs pose detection based on numpy image
-    model_path = 'src/models/pose_landmarker_full.task'
+def findVector(image):
+    '''
+    Takes in an image and outputs the detection results
+    '''
+    model_path = 'src\\models\\pose_landmarker_full.task'
 
     BaseOptions = mp.tasks.BaseOptions
     PoseLandmarker = mp.tasks.vision.PoseLandmarker
@@ -46,29 +48,15 @@ def findVector3(image):
         running_mode=VisionRunningMode.IMAGE)
 
     with PoseLandmarker.create_from_options(options) as landmarker:
-
-        #Image input from file
-        mp_image = mp.Image.create_from_file(image)
-        #Image input from numpy array (for movies)
-        #mp_image = mp.Image(image_format=mp.ImageFormat.SRGB, data=numpy_image)
-
-
-        detection_result = landmarker.detect(    mp_image)
-
-        mp_image = annotated_image.numpy_view()
-        annotated_image = draw_landmarks_on_image(mp_image.numpy_view(), detection_result)
-        cv2.imshow(cv2.cvtColor('Pose', annotated_image, cv2.COLOR_RGB2BGR))
-        cv2.waitKey(0)
-        cv2.destroyAllWindows()  # closes the window
-
-
+        mp_image = mp.Image(image_format=mp.ImageFormat.SRGB, data=image)
+        detection_result = landmarker.detect(mp_image)
     return detection_result
+
 
 
 #Normalize the resultant vector 
 def normalize(result):
   result = result.pose_world_landmarks[0]
-  print(result)
   finalResult = []
   for i in result:
       arr = []
