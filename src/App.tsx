@@ -1,5 +1,6 @@
 import React, { useState, useRef, useEffect } from "react";
 import Curtain from "./components/Curtain";
+import ClapperBoard from "./components/ClapperBoard";
 import Webcam from "react-webcam";
 
 function App() {
@@ -11,6 +12,7 @@ function App() {
   const [isFreezing, setIsFreezing] = useState(false);
   const [hasPermission, setHasPermission] = useState<boolean | null>(null);
   const [countdown, setCountdown] = useState<number | null>(null);
+  const [showClapper, setShowClapper] = useState(false);
 
   // Check camera permissions when component mounts
   useEffect(() => {
@@ -56,13 +58,20 @@ function App() {
         setShowCurtain(false);
       }
       
-      // Take the photo after a very short delay to ensure curtain state is updated
+      // Take the photo immediately after curtain closes
       setTimeout(() => {
         if (!webcamRef.current) return;
         
         const imageSrc = webcamRef.current.getScreenshot();
         if (imageSrc) {
           setPhoto(imageSrc);
+          // Show clapper board after photo is taken
+          setShowClapper(true);
+          // Hide clapper board and close curtain after a delay
+          setTimeout(() => {
+            setShowClapper(false);
+            setShowCurtain(true);
+          }, 2000); // Show clapper board for 2 seconds
         } else {
           setWebcamError("Failed to capture photo. Please try again.");
         }
@@ -83,6 +92,7 @@ function App() {
         onClose={() => {}} 
         isOpen={showCurtain}
       />
+      <ClapperBoard isVisible={showClapper} />
       <div className="flex flex-col items-center justify-center min-h-screen">
         <div className="relative w-80 h-80 bg-black rounded-lg overflow-hidden flex items-center justify-center shadow-lg">
           {webcamError ? (
