@@ -1,6 +1,6 @@
-import React, { useRef, useState, useEffect } from "react";
+import { useRef, useState, useEffect } from "react";
 import Webcam from "react-webcam";
-import "./Background.css"; // Make sure the curtain and clapperboard CSS are in this file
+import "./Background.css";
 
 function CustomWebcam() {
   const webcamRef = useRef<Webcam>(null);
