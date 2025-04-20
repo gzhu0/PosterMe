@@ -97,21 +97,21 @@ function App() {
             />
           )}
         </div>
-        <div className="mt-2">
+        <div className="fixed bottom-16">
           {!webcamError && hasPermission && (
             <button
-              className={`px-6 py-2 bg-blue-600 text-white rounded shadow transition-all duration-150
-                hover:bg-blue-700 active:bg-blue-800 
-                ${buttonPressed ? 'scale-95 bg-blue-800 opacity-75' : ''}`}
+              className={`w-24 h-24 rounded-full bg-emerald-400 text-white shadow transition-all duration-150
+                hover:bg-emerald-500 active:bg-emerald-600 text-2xl font-bold flex items-center justify-center
+                ${buttonPressed ? 'scale-95 bg-emerald-600 opacity-75' : ''}`}
               onClick={handleButtonClick}
               disabled={isFreezing}
             >
-              Take Picture
+              START
             </button>
           )}
           {!hasPermission && !webcamError && (
             <button
-              className="px-6 py-2 bg-blue-600 text-white rounded shadow hover:bg-blue-700"
+              className="w-24 h-24 rounded-full bg-emerald-400 text-white shadow hover:bg-emerald-500 text-2xl font-bold flex items-center justify-center"
               onClick={() => window.location.reload()}
             >
               Allow Camera Access

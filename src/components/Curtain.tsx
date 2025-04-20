@@ -27,6 +27,20 @@ const Curtain: React.FC<CurtainProps> = ({ onFinish, onClose, isOpen }) => {
 
   return (
     <div className="fixed inset-0 z-50 pointer-events-none">
+      {/* Falling Title */}
+      <div
+        className="absolute top-0 left-1/2 transform -translate-x-1/2 text-white text-6xl font-bold"
+        style={{
+          opacity: open ? 1 : 0,
+          transform: open ? 'translate(-50%, 20vh)' : 'translate(-50%, -100%)',
+          transition: 'all 1.5s cubic-bezier(0.4, 0, 0.2, 1)',
+          textShadow: '2px 2px 4px rgba(0,0,0,0.5)',
+          zIndex: 51
+        }}
+      >
+        POSTERME
+      </div>
+      
       {/* Both panels start at center and slide outward to edges */}
       <>
         {/* Left panel */}
