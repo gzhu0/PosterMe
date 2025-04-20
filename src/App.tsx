@@ -59,7 +59,7 @@ function App() {
   };
 
   return (
-    <div className="relative min-h-screen bg-gray-100">
+    <div className="relative min-h-screen bg-amber-50">
       <Curtain 
         onFinish={() => {}} 
         onClose={() => {}} 
@@ -78,11 +78,11 @@ function App() {
               ref={webcamRef}
               audio={false}
               screenshotFormat="image/jpeg"
-              width={320}
-              height={320}
+              width={640}
+              height={480}
               videoConstraints={{
-                width: 320,
-                height: 320,
+                width: { ideal: 1280 },
+                height: { ideal: 720 },
                 facingMode: "user"
               }}
               className={`object-cover w-full h-full ${isFreezing ? 'opacity-50' : ''}`}

@@ -4,9 +4,10 @@ interface CurtainProps {
   onFinish: () => void;
   onClose: () => void;
   isOpen: boolean;
+  onAnimationStart?: () => void;
 }
 
-const Curtain: React.FC<CurtainProps> = ({ onFinish, onClose, isOpen }) => {
+const Curtain: React.FC<CurtainProps> = ({ onFinish, onClose, isOpen, onAnimationStart }) => {
   const [open, setOpen] = useState(false);
 
   useEffect(() => {
@@ -14,6 +15,7 @@ const Curtain: React.FC<CurtainProps> = ({ onFinish, onClose, isOpen }) => {
       // Open curtain after a delay
       const openTimer = setTimeout(() => {
         setOpen(true);
+        onAnimationStart?.();
         onFinish();
       }, 1500);
       
@@ -23,7 +25,7 @@ const Curtain: React.FC<CurtainProps> = ({ onFinish, onClose, isOpen }) => {
       setOpen(false);
       onClose();
     }
-  }, [isOpen, onFinish, onClose]);
+  }, [isOpen, onFinish, onClose, onAnimationStart]);
 
   return (
     <div className="fixed inset-0 z-50 pointer-events-none">
